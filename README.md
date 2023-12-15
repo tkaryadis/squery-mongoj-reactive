@@ -17,7 +17,7 @@
 
 **Java or Clojure programmers reactive driver** 
 
-```
+``` 
 [org.squery/squery-mongo-core "0.2.0-SNAPSHOT"]
 [org.squery/squery-mongoj-reactive "0.2.0-SNAPSHOT"]
 ```
