@@ -29,7 +29,6 @@
                  ]
   
   :plugins [[lein-codox "0.10.7"]]
-
   :source-paths ["src/clojure"]
   :java-source-paths ["src/java"]
 
