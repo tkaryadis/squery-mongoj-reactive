@@ -1,0 +1,27 @@
+1)ReactiveMongoRepository
+  has some operations
+  
+  in the project i implemented that
+  
+  in the mongo-data-source-code
+     SimpleReactiveMongoRepository implements it
+     
+2)The operations Interface are inside
+
+  org.springframework.data.mongodb.core.ReactiveMongoOperations;
+  
+3)The implementations  of ReactiveMongoOperations are inside ReactiveMongoTemplate
+
+  org.springframework.data.mongodb.core
+  
+  For aggregation this is where i call the driver
+   
+    AggregatePublisher<Document> cursor = collection.aggregate(pipeline, Document.class);
+    
+    if (options.getCursorBatchSize() != null) {
+		cursor = cursor.batchSize(options.getCursorBatchSize());
+    }
+    
+    And finally i do this
+    
+    Flux.from(cursor).concatMap(readCallback::doWith);
