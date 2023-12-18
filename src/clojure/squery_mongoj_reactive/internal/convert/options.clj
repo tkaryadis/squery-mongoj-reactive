@@ -1,6 +1,6 @@
-(ns squery-mongo.internal.convert.options
+(ns squery-mongoj-reactive.internal.convert.options
   (:require [squery-mongo-core.utils :refer [string-map]]
-            [squery-mongo.driver.document :refer [clj-doc clj->j-doc]])
+            [squery-mongoj-reactive.driver.document :refer [clj-doc clj->j-doc]])
   (:import (java.util.concurrent TimeUnit)
            (com.mongodb.client.model EstimatedDocumentCountOptions
                                      DropIndexOptions

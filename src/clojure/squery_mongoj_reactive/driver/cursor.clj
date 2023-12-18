@@ -1,7 +1,7 @@
-(ns squery-mongo.driver.cursor
+(ns squery-mongoj-reactive.driver.cursor
   (:require clojure.pprint
-            [squery-mongo.driver.document :refer [json->clj j-doc->clj]]
-            [squery-mongo.driver.settings :refer [defaults]])
+            [squery-mongoj-reactive.driver.document :refer [json->clj j-doc->clj]]
+            [squery-mongoj-reactive.driver.settings :refer [defaults]])
   (:import (java.util ArrayList)
            (org.bson Document)))
 

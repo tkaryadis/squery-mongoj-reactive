@@ -1,4 +1,4 @@
-(ns squery-mongo.simple-test
+(ns squery-mongoj-reactive.simple-test
   (:refer-clojure :only [])
   (:use reactor-utils.functional-interfaces
         reactor-utils.reactor
@@ -7,13 +7,13 @@
         squery-mongo-core.operators.uoperators
         squery-mongo-core.operators.stages
         squery-mongo-core.operators.options
-        squery-mongo.driver.cursor
-        squery-mongo.driver.document
-        squery-mongo.driver.settings
-        squery-mongo.driver.utils
-        squery-mongo.arguments
-        squery-mongo.commands
-        squery-mongo.macros
+        squery-mongoj-reactive.driver.cursor
+        squery-mongoj-reactive.driver.document
+        squery-mongoj-reactive.driver.settings
+        squery-mongoj-reactive.driver.utils
+        squery-mongoj-reactive.arguments
+        squery-mongoj-reactive.commands
+        squery-mongoj-reactive.macros
         flatland.ordered.map
         clojure.pprint)
   (:refer-clojure)

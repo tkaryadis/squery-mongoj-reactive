@@ -1,4 +1,4 @@
-(ns squery-mongo.driver.settings
+(ns squery-mongoj-reactive.driver.settings
   (:import (com.mongodb MongoClientSettings)
            (org.bson.codecs.configuration CodecRegistries CodecProvider CodecRegistry)
            (java.util ArrayList)

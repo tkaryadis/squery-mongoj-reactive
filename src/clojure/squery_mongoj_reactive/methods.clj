@@ -1,5 +1,5 @@
-(ns squery-mongo.methods
-  (:require [squery-mongo.macros :refer [m]]))
+(ns squery-mongoj-reactive.methods
+  (:require [squery-mongoj-reactive.macros :refer [m]]))
 
 ;;squery-mongo doesn't wrap the driver methods one by one (it has commands, that some wrap methds like q wraps .aggregate)
 ;;uses squery arguments and interop directly

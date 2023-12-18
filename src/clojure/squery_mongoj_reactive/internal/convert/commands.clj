@@ -1,6 +1,6 @@
-(ns squery-mongo.internal.convert.commands
+(ns squery-mongoj-reactive.internal.convert.commands
   (:require [squery-mongo-core.internal.convert.commands :refer [split-db-namespace]]
-            [squery-mongo.driver.settings :refer [defaults j-registry pojo-registry]])
+            [squery-mongoj-reactive.driver.settings :refer [defaults j-registry pojo-registry]])
   (:import (com.mongodb.reactivestreams.client MongoClient MongoCollection MongoDatabase)
            (org.bson Document)
            (com.mongodb MongoClientSettings)))

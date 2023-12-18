@@ -1,13 +1,13 @@
-(ns squery-mongo.bulk
+(ns squery-mongoj-reactive.bulk
   (:refer-clojure :only [])
-  (:use squery-mongo.api.macros
-        squery-mongo.api.arguments
-        squery-mongo.api.mongo-collection
-        squery-mongo.api.driver-core
-        squery-mongo.client
-        squery-mongo.cursor
-        squery-mongo.document
-        squery-mongo.settings
+  (:use squery-mongoj-reactive.api.macros
+        squery-mongoj-reactive.api.arguments
+        squery-mongoj-reactive.api.mongo-collection
+        squery-mongoj-reactive.api.driver-core
+        squery-mongoj-reactive.client
+        squery-mongoj-reactive.cursor
+        squery-mongoj-reactive.document
+        squery-mongoj-reactive.settings
         squery-mongo-core.operators.operators
         squery-mongo-core.operators.stages
         clojure.pprint)

@@ -1,7 +1,7 @@
-(ns squery-mongo.macros
+(ns squery-mongoj-reactive.macros
   (:require squery-mongo-core.operators.operators
             squery-mongo-core.operators.stages
-            [squery-mongo.internal.convert.arguments :refer [convert-arg]]))
+            [squery-mongoj-reactive.internal.convert.arguments :refer [convert-arg]]))
 
 ;;-----------------------------------------DSL-macros--------------------------------------------------------------------
 

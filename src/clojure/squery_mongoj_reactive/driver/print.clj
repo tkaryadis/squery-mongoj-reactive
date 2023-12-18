@@ -1,6 +1,6 @@
-(ns squery-mongo.driver.print
+(ns squery-mongoj-reactive.driver.print
   (:require [squery-mongo-core.utils :refer [string-map ordered-map]]
-            [squery-mongo.driver.document :refer [clj->json]]))
+            [squery-mongoj-reactive.driver.document :refer [clj->json]]))
 
 (defn print-command? [args]
   (reduce (fn [[args print?] arg]

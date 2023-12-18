@@ -1,8 +1,8 @@
-(ns squery-mongo.driver.document
+(ns squery-mongoj-reactive.driver.document
   (:require ;[cheshire.core :refer [generate-string parse-string]]
     [squery-mongo-core.utils :refer [ordered-map]]
     [clojure.data.json :refer [write-str read-str]]
-    [squery-mongo.driver.utils :refer [ISODate]] )
+    [squery-mongoj-reactive.driver.utils :refer [ISODate]] )
   (:import [com.mongodb BasicDBList]
            [clojure.lang IPersistentMap Named Keyword Ratio]
            [java.util List Map Date Set]

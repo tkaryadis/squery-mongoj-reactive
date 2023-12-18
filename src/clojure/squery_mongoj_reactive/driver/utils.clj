@@ -1,4 +1,4 @@
-(ns squery-mongo.driver.utils
+(ns squery-mongoj-reactive.driver.utils
   (:use clojure.pprint)
   (:import (java.time Instant)
            (java.sql Date)))

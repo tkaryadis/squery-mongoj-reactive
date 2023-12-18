@@ -1,10 +1,10 @@
-(ns squery-mongo.internal.convert.arguments
+(ns squery-mongoj-reactive.internal.convert.arguments
   (:require squery-mongo-core.operators.operators
             [squery-mongo-core.internal.convert.common :refer [single-maps]]
             [squery-mongo-core.internal.convert.commands :refer
              [get-pipeline-options squery-pipeline->mql-pipeline args->query-updateOperators-options squery-map->mql-map split-db-namespace]]
-            [squery-mongo.internal.convert.options :refer [convert-options]]
-            [squery-mongo.driver.document :refer [clj->j-doc]])
+            [squery-mongoj-reactive.internal.convert.options :refer [convert-options]]
+            [squery-mongoj-reactive.driver.document :refer [clj->j-doc]])
   (:import (java.util Arrays)))
 
 

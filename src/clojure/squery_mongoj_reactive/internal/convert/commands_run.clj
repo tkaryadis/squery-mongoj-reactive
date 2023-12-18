@@ -1,12 +1,12 @@
-(ns squery-mongo.internal.convert.commands-run
+(ns squery-mongoj-reactive.internal.convert.commands-run
   (:require [squery-mongo-core.utils :refer [ordered-map]]
-            [squery-mongo.internal.convert.commands :refer [get-command-info]]
-            [squery-mongo.internal.convert.options :refer [add-options]]
-            [squery-mongo.driver.settings :refer [defaults pojo-registry  j-registry]]
-            [squery-mongo.driver.document :refer [clj-doc clj->j-doc j-doc->clj]]
-            [squery-mongo.driver.print :refer [print-command]]
-            [reactor-utils.functional-interfaces :refer [ffn]]
-            [reactor-utils.reactor :refer [to-flux to-mono]])
+            [squery-mongoj-reactive.internal.convert.commands :refer [get-command-info]]
+            [squery-mongoj-reactive.internal.convert.options :refer [add-options]]
+            [squery-mongoj-reactive.driver.settings :refer [defaults pojo-registry  j-registry]]
+            [squery-mongoj-reactive.driver.document :refer [clj-doc clj->j-doc j-doc->clj]]
+            [squery-mongoj-reactive.driver.print :refer [print-command]]
+            [squery-mongoj-reactive.reactor-utils.functional-interfaces :refer [ffn]]
+            [squery-mongoj-reactive.reactor-utils.reactor :refer [to-flux to-mono]])
   (:import (com.mongodb MongoCommandException MongoClientSettings)
            (com.mongodb.reactivestreams.client ClientSession MongoCollection MongoDatabase)
            (java.util ArrayList Collection Map List Arrays)

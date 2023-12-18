@@ -14,7 +14,7 @@
                  ;;project reactor
                  [io.projectreactor/reactor-core "3.5.11"]
                  ;;clojure-reactor-utils
-                 [reactor-utils "0.1.0-SNAPSHOT"]
+                 ;[reactor-utils "0.1.0-SNAPSHOT"]
 
                  ;;mongo
                  [org.mongodb/mongodb-driver-reactivestreams "4.11.0"]

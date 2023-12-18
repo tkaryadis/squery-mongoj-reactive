@@ -1,9 +1,9 @@
-(ns squery-mongo.arguments
+(ns squery-mongoj-reactive.arguments
   (:require squery-mongo-core.operators.operators
             [squery-mongo-core.internal.convert.stages :refer [squery-vector->squery-map]]
-            [squery-mongo.internal.convert.arguments :refer [jp-f u-f]]
-            [squery-mongo.internal.convert.options :refer [convert-options]]
-            [squery-mongo.driver.document :refer [clj->j-doc]])
+            [squery-mongoj-reactive.internal.convert.arguments :refer [jp-f u-f]]
+            [squery-mongoj-reactive.internal.convert.options :refer [convert-options]]
+            [squery-mongoj-reactive.driver.document :refer [clj->j-doc]])
   (:import (org.bson Document BSON)
            (java.util Map ArrayList)))
 
