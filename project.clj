@@ -4,17 +4,20 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :dependencies [
-                 [org.clojure/clojure "1.10.0"]
-
-                 ;;log
-                 [org.slf4j/slf4j-api "1.7.30"]
-                 [com.fzakaria/slf4j-timbre "0.3.21"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
 
                  ;;project reactor
                  [io.projectreactor/reactor-core "3.5.11"]
                  ;;clojure-reactor-utils
-                 ;[reactor-utils "0.1.0-SNAPSHOT"]
+                 ;;[reactor-utils "0.1.0-SNAPSHOT"]
+
+                 ;;mutiny
+                 [io.smallrye.reactive/mutiny "2.5.7"]
+                 [io.smallrye.reactive/mutiny-reactor "2.5.7"]
+
+                 ;;log
+                 [org.slf4j/slf4j-api "1.7.30"]
+                 [com.fzakaria/slf4j-timbre "0.3.21"]
 
                  ;;mongo
                  [org.mongodb/mongodb-driver-reactivestreams "4.11.0"]
@@ -27,12 +30,14 @@
                  ;;ordered-map
                  [org.flatland/ordered "1.5.9"]
                  ]
-  
+
   :plugins [[lein-codox "0.10.7"]]
   :source-paths ["src/clojure"]
   :java-source-paths ["src/java"]
 
+  ;;:global-vars {*warn-on-reflection* true *assert* false}
+
   ;;:repl-options {:init-ns cmql-j.cmql-repl}
-  ;;:main squery-mongo.insert-aggregate
-  ;;:aot [cmql-j.cmql-repl]
+  ;:main squery-mongoj-reactive.core
+  ;:aot [squery-mongoj-reactive.core]
   )

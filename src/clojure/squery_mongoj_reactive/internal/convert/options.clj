@@ -1,6 +1,6 @@
 (ns squery-mongoj-reactive.internal.convert.options
   (:require [squery-mongo-core.utils :refer [string-map]]
-            [squery-mongoj-reactive.driver.document :refer [clj-doc clj->j-doc]])
+            [squery-mongoj-reactive.driver.document :refer [clj->j-doc]])
   (:import (java.util.concurrent TimeUnit)
            (com.mongodb.client.model EstimatedDocumentCountOptions
                                      DropIndexOptions
@@ -108,11 +108,12 @@
    "allowDiskUse"             (fn [obj option] (.allowDiskUse obj option))
    "bypassDocumentValidation" (fn [obj option] (.bypassDocumentValidation obj option))
    "comment"                  (fn [obj option] (.comment obj option))
-   "filter"                   (fn [obj option] (.filter obj (clj-doc option)))
-   "sort"                     (fn [obj option] (.sort obj (clj-doc option)))
-   "projection"               (fn [obj option] (.projection obj (clj-doc option)))
-   "max"                      (fn [obj option] (.max obj (clj-doc option)))
-   "min"                      (fn [obj option] (.min obj (clj-doc option)))
+   ;;TODO AFTER CODEC FIX replace the clj-to-j with clj-doc
+   "filter"                   (fn [obj option] (.filter obj (clj->j-doc option)))
+   "sort"                     (fn [obj option] (.sort obj (clj->j-doc option)))
+   "projection"               (fn [obj option] (.projection obj (clj->j-doc option)))
+   "max"                      (fn [obj option] (.max obj (clj->j-doc option)))
+   "min"                      (fn [obj option] (.min obj (clj->j-doc option)))
    "limit"                    (fn [obj option] (.limit obj option))
    "skip"                     (fn [obj option] (.skip obj option))
    "noCursorTimeout"          (fn [obj option] (.noCursorTimeout obj option))
@@ -129,7 +130,7 @@
    ;;Same name,value convert
    "hint"                     (fn [obj option] (if (string? option)
                                                  (.hintString obj option)
-                                                 (.hint obj (clj-doc option))))
+                                                 (.hint obj (clj->j-doc option)))) ;;TODO CODEC
 
    "collation"                (fn [obj option] (if (instance? Collation option)               ;TODO
                                                  nil

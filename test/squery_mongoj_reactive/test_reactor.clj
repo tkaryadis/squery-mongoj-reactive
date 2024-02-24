@@ -1,7 +1,7 @@
-(ns squery-mongoj-reactive.simple-test
+(ns squery-mongoj-reactive.test-reactor
   (:refer-clojure :only [])
-  (:use reactor-utils.functional-interfaces
-        reactor-utils.reactor
+  (:use squery-mongoj-reactive.reactor-utils.functional-interfaces
+        squery-mongoj-reactive.reactor-utils.reactor
         squery-mongo-core.operators.operators
         squery-mongo-core.operators.qoperators
         squery-mongo-core.operators.uoperators
@@ -27,10 +27,12 @@
 (-> (drop-collection :testdb.testcoll)
     .block)
 
-(-> (insert :testdb.testcoll [{:b [1 2 3]}])
+(-> (insert :testdb.testcoll [{:b [-1 2 3]}])
     .block)
 
-(-> (q :testdb.testcoll)
+(prn (squery-mongo-core.operators.operators/abs -1))
+(-> (q :testdb.testcoll
+       {:b (map (fn [:this.] (abs :this.)) :b)})
     (.map (ffn [r] (do (prn r) r)))
     (.subscribe))
 

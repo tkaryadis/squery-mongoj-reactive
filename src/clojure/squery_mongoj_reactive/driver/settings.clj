@@ -17,6 +17,7 @@
    }
 (def defaults-map (atom {:client-settings (-> (MongoClientSettings/builder) (.build))
                          :clj? true
+                         :mutiny? true
                          :session nil}))
 
 (defn defaults [k]

@@ -5,13 +5,15 @@
             [squery-mongoj-reactive.driver.settings :refer [defaults pojo-registry  j-registry]]
             [squery-mongoj-reactive.driver.document :refer [clj-doc clj->j-doc j-doc->clj]]
             [squery-mongoj-reactive.driver.print :refer [print-command]]
-            [squery-mongoj-reactive.reactor-utils.functional-interfaces :refer [ffn]]
-            [squery-mongoj-reactive.reactor-utils.reactor :refer [to-flux to-mono]])
+            [squery-mongoj-reactive.reactor-utils.functional-interfaces :refer [ffn]])
   (:import (com.mongodb MongoCommandException MongoClientSettings)
            (com.mongodb.reactivestreams.client ClientSession MongoCollection MongoDatabase)
+           (io.smallrye.mutiny Multi Uni)
            (java.util ArrayList Collection Map List Arrays)
+           (mutiny.zero.flow.adapters AdaptersToFlow)
            (org.bson Document)
-           (com.mongodb.client.model InsertManyOptions InsertOneOptions)))
+           (com.mongodb.client.model InsertManyOptions InsertOneOptions)
+           (reactor.core.publisher Flux Mono)))
 
 ;;------------------------------------------run-command-----------------------------------------------------------------
 ;;----------------------------------------------------------------------------------------------------------------------
@@ -51,10 +53,12 @@
           mql-doc (clj->j-doc mql-map)
           result (if (some? session)
                    (.runCommand db ^ClientSession session ^Document mql-doc ^Class result-class) ;;(c-schema (.runCommand db ^ClientSession session ^Document mql-doc))
-                   (.runCommand db ^Document mql-doc ^Class result-class))]
-      (if (defaults :clj?)
-        (to-mono (.map result (ffn [doc] (j-doc->clj doc))))
-        (to-mono result)))))
+                   (.runCommand db ^Document mql-doc ^Class result-class))
+          result (if (defaults :mutiny?)
+                   (-> (Uni/createFrom) (.publisher (AdaptersToFlow/publisher result)))
+                   (Mono/from result))
+          result (if (defaults :clj?) (.map result (ffn [doc] (j-doc->clj doc))) result)]
+      result)))
 
 
 ;;---------------------------------------Methods------------------------------------------------------------------------
@@ -91,7 +95,9 @@
                  (if (some? session)
                    (.insertOne coll session documents (add-options (InsertOneOptions.) options))
                    (.insertOne coll documents (add-options (InsertOneOptions.) options))))]
-    (to-mono result)))
+    (if (defaults :mutiny?)
+      (-> (Uni/createFrom) (.publisher (AdaptersToFlow/publisher result)))
+      (Mono/from result))))
 
 ;;optional settings
 ;;{:client client
@@ -121,11 +127,16 @@
                                   (.aggregate ^MongoCollection coll pipeline ^Class result-class))
           options (dissoc command-body "pipeline")
           _ (add-options aggregateIterableImpl options)
+
+          aggregateIterableImpl (if (defaults :mutiny?)
+                                  (-> (Multi/createFrom) (.publisher (AdaptersToFlow/publisher aggregateIterableImpl)))
+                                  (Flux/from aggregateIterableImpl))
+          aggregateIterableImpl (if (defaults :clj?)
+                                  (-> aggregateIterableImpl
+                                      (.map (ffn [doc] (j-doc->clj doc))))
+                                  aggregateIterableImpl)
           ]
-      (if (defaults :clj?)
-        (.map (to-flux aggregateIterableImpl)
-              (ffn [a] (j-doc->clj a)))
-        (to-flux aggregateIterableImpl)))))
+      aggregateIterableImpl)))
 
 
 (defn run-find [command-info command]
@@ -142,11 +153,14 @@
                          (.find ^MongoCollection coll ^Class result-class))
           options command-body
           _ (add-options findIterable options)
-          ]
-      (if (defaults :clj?)
-        (.map (to-flux findIterable)
-              (ffn [a] (j-doc->clj a)))
-        (to-flux findIterable)))))
+          findIterable (if (defaults :mutiny?)
+                         (-> (Multi/createFrom) (.publisher (AdaptersToFlow/publisher findIterable)))
+                         (Flux/from findIterable))
+          findIterable (if (defaults :clj?)
+                         (-> findIterable
+                             (.map (ffn [doc] (j-doc->clj doc))))
+                         findIterable)]
+      findIterable)))
 
 
 ;;--------------------------------------Method or Command(depends on arguments)-----------------------------------------
