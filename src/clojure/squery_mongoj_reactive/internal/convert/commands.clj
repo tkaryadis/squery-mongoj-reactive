@@ -53,7 +53,9 @@
              (.getDatabase client db-name)
              (defaults :db))
         db-name (.getName ^MongoDatabase db)
-        coll (if (some? coll-name) (.getCollection db coll-name result-class) nil) ;;coll is optional depends on command
+        coll (if (and (some? coll-name) (not= coll-name ""))  ;;coll is optional depends on command
+               (.getCollection db coll-name result-class)
+               nil)
         ]
     {:client client
      :session session

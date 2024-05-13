@@ -49,6 +49,7 @@
                          command-body)
           command-body (dissoc command-body "client" "session")
           mql-map (merge (ordered-map (get command :command-head)) command-body)
+          ;_ (prn "mql-map" mql-map)
           ;mql-doc (clj-doc mql-map)   ;;TODO WHEN CODEC
           mql-doc (clj->j-doc mql-map)
           result (if (some? session)

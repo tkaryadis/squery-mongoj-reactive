@@ -119,6 +119,7 @@
 (defmacro drop-database [command-db-info & args]
   `(squery-mongoj-reactive.internal.convert.commands-run/run-command
      (keyword (str (name ~command-db-info) "."))
+     ;(get-command-info ~command-db-info)
      (apply squery-mongo-core.administration/drop-database ~(vec (cons command-db-info args)))))
 
 (defmacro list-databases [ & args]

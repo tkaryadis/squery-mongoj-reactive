@@ -24,16 +24,23 @@
 
 (update-defaults :client (MongoClients/create ^MongoClientSettings (defaults :client-settings)))
 
+;(update-defaults :client (MongoClients/create "mongodb+srv://root:2580takis#@rejoy-cluster.3zyookr.mongodb.net/?retryWrites=true&w=majority&appName=rejoy-cluster"))
+
+(-> (drop-database :products-service)
+    .block)
+
+(comment
 (-> (drop-collection :testdb.testcoll)
     .block)
 
 (-> (insert :testdb.testcoll [{:b [-1 2 3]}])
     .block)
 
-(prn (squery-mongo-core.operators.operators/abs -1))
 (-> (q :testdb.testcoll
        {:b (map (fn [:this.] (abs :this.)) :b)})
     (.map (ffn [r] (do (prn r) r)))
     (.subscribe))
+
+)
 
 (.read (System/in))
