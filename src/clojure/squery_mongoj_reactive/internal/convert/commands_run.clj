@@ -4,8 +4,7 @@
             [squery-mongoj-reactive.internal.convert.options :refer [add-options]]
             [squery-mongoj-reactive.driver.settings :refer [defaults pojo-registry  j-registry]]
             [squery-mongoj-reactive.driver.document :refer [clj-doc clj->j-doc j-doc->clj]]
-            [squery-mongoj-reactive.driver.print :refer [print-command]]
-            [squery-mongoj-reactive.reactor-utils.functional-interfaces :refer [ffn]])
+            [squery-mongoj-reactive.driver.print :refer [print-command]])
   (:import (com.mongodb MongoCommandException MongoClientSettings)
            (com.mongodb.reactivestreams.client ClientSession MongoCollection MongoDatabase)
            (io.smallrye.mutiny Multi Uni)
@@ -58,7 +57,7 @@
           result (if (defaults :mutiny?)
                    (-> (Uni/createFrom) (.publisher (AdaptersToFlow/publisher result)))
                    (Mono/from result))
-          result (if (defaults :clj?) (.map result (ffn [doc] (j-doc->clj doc))) result)]
+          result (if (defaults :clj?) (.map result (fn [doc] (j-doc->clj doc))) result)]
       result)))
 
 
@@ -134,7 +133,7 @@
                                   (Flux/from aggregateIterableImpl))
           aggregateIterableImpl (if (defaults :clj?)
                                   (-> aggregateIterableImpl
-                                      (.map (ffn [doc] (j-doc->clj doc))))
+                                      (.map (fn [doc] (j-doc->clj doc))))
                                   aggregateIterableImpl)
           ]
       aggregateIterableImpl)))
@@ -159,7 +158,7 @@
                          (Flux/from findIterable))
           findIterable (if (defaults :clj?)
                          (-> findIterable
-                             (.map (ffn [doc] (j-doc->clj doc))))
+                             (.map (fn [doc] (j-doc->clj doc))))
                          findIterable)]
       findIterable)))
 

@@ -1,8 +1,6 @@
 (ns squery-mongoj-reactive.test-mutiny
   (:refer-clojure :only [])
-  (:use squery-mongoj-reactive.reactor-utils.functional-interfaces
-        squery-mongoj-reactive.reactor-utils.reactor
-        squery-mongo-core.operators.operators
+  (:use squery-mongo-core.operators.operators
         squery-mongo-core.operators.qoperators
         squery-mongo-core.operators.uoperators
         squery-mongo-core.operators.stages
@@ -35,7 +33,7 @@
 
 (-> (q :testdb.testcoll
        {:b (map (fn [:this.] (abs :this.)) :b)})
-    (.map (ffn [r] (do (prn r) r)))
-    (.subscribe) (.with (cfn [x] (prn x))))
+    (.map (fn [r] (do (prn r) r)))
+    (.subscribe) (.with (fn [x] (prn x))))
 
 (.read (System/in))
